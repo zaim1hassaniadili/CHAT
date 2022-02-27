@@ -26,11 +26,11 @@ export function useGlobal() {
 
 
 function GlobalProvider({ id, children }) {
-
-    let mainSalon = {
+    
+    const mainSalon = {
         salonName: "Main",
         messages: [],
-        users: ["Tabita", "Morro"]
+        users: []
     }
 
     const [selectedSalonIndex, setSelectedSalonIndex] = useState(0)
@@ -103,14 +103,10 @@ function GlobalProvider({ id, children }) {
         let selectedSalon = stateRef.current.filter(elt => {
             return elt.salonName === msg.salonname;
         })
-
-        //console.log('wesg',stateRef.current)
-        //console.log(msg, selectedSalon, stateRef.current)
         if (!selectedSalon[0].users.includes(msg.userNickname) && msg.userNickname !== "SYSTEM")
             selectedSalon[0].users.push(msg.userNickname);
 
         selectedSalon[0].messages.push(msg)
-        //console.log('pudh', stateRef.current);
         setSalonManager([...stateRef.current])
     }
     /*
@@ -123,12 +119,10 @@ function GlobalProvider({ id, children }) {
 
     function addSalonOnreceive(salon) {
         console.log("Creating new Salon");
-        //setSalonManager(prevState => { return [...prevState, msg] })
         salonManager.push(salon)
         setSalonManager([...salonManager])
 
     }
-
 
     function removeItemOnce(arr, value) {
         var index = arr.indexOf(value);
@@ -151,11 +145,14 @@ function GlobalProvider({ id, children }) {
 
     function sendMessage(text) {
         const currentSalon = salonManager[selectedSalonIndex];
+        let date = Date.now();
+        let dateObject = Date(date);
+       
 
         let messageObject = {
             salonname: currentSalon.salonName,
             userNickname: id,
-            timeStamps: Date.now(),
+            timeStamps: dateObject.toLocaleString().slice(0,21),
             textMessage: text
         }
         console.log("send Message =>", currentSalon)

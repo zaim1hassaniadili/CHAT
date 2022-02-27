@@ -1,0 +1,48 @@
+.textarea{
+    height: 10vh;
+}
+.container{
+    height: 90vh;
+}
+.message_wrapper{
+ display: flex;
+ margin:15px;
+ line-height:17px;
+}
+.system{
+    justify-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: Impact, "Haettenschweiler", 'Arial Narrow Bold', sans-serif;
+    font-weight: 700;
+  
+}
+.system > *{
+    align-items: center;
+    color:#203239BF;
+}
+
+.me .message_div{
+background-color:#2D31FA;
+line-height: 17px;
+padding: 1%;
+border-radius: 15px 15px 15px 0;
+font-family: Impact, "Haettenschweiler", 'Arial Narrow Bold', sans-serif;
+font-weight: 400;
+color:white
+}
+
+.them .message_div{
+    background-color:#5D8BF4;
+    line-height: 17px;
+    padding: 1%;
+    border-radius: 15px 15px 0 15px;
+    font-family: Impact, "Haettenschweiler", 'Arial Narrow Bold', sans-serif;
+    font-weight: 400;
+    color:white;
+
+}
+.them{
+    justify-items: center;
+    justify-content: right;
+}

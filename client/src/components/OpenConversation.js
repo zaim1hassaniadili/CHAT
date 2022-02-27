@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Form, InputGroup, Button } from 'react-bootstrap'
 import { useGlobal } from "../context/GlobalProvider"
+import "./OpenConversation.css"
 function OpenConversation() {
     const [text, setText] = useState('');
     const { selectedSalon, sendMessage, deleteSalon, id } = useGlobal();
@@ -34,39 +35,43 @@ function OpenConversation() {
     return (
         <div className="d-flex flex-column flex-grow-1 ">
             <Button variant="danger" type="submit" onClick={handleDelete}>Delete</Button>
-            <div className="flex-grow-1 overflow-auto" style={{ background: "#D6E5FA" }}>
+            <div className="overflow-auto container" style={{ background: "#D6E5FA" }}>
 
-                <div className="d-flex flex-column align-items-start justify-content-end px-3">
+            
                     {
                         selectedSalon?.messages.map((message, index) => {
-                            const lastMessage = selectedSalon.messages.length - 1 === index
+                            const lastMessage = selectedSalon?.messages.length - 1 === index
                             return (
+                                <div className={`message_wrapper ${message.userNickname ==="SYSTEM"? "system": message.userNickname === id ? "me": "them"} `}>
                                 <div
                                     ref={lastMessage ? setRef : null}
                                     key={index}
-                                    className={`my-1 d-flex flex-column  align-items-start`}
+                                    className={`message_div`}
                                 >
+                                    <div className={`text-muted bold `}>
+                                        {message.userNickname=== id? "me": message.userNickname}
+                                    </div>
                                     <div
-                                        className={`my-1 d-flex flex-column rounded px-2 py-1 text-white ${message.userNickname === system ? 'bg-dark'
-                                            : id === message.userNickname ?
-                                                'bg-primary align-self-end align-items-end' :
-                                                ' bg-secondary align-items-start'}`}
+                                        className={`message`}
                                     >
                                         {message.textMessage}
                                     </div>
-                                    <div className={`text-muted small `}>
-                                        {message.userNickname}
-                                    </div>
+                                    {/* <div className={`text-muted small `}>
+                                        {message.timeStamps}
+                                    </div> */}
+                                    
+                                </div>
                                 </div>
                             )
                         })
                     }
-                </div>
+              
             </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="m-2">
                     <InputGroup>
                         <Form.Control
+                            className="textarea"
                             as="textarea"
                             required
                             value={text}
